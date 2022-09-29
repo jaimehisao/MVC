@@ -6,7 +6,7 @@ from typing import Callable, Iterator
 
 from sqlalchemy.orm import Session
 
-from .models import User
+from model.models import User
 
 
 class UserRepository:
