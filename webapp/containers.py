@@ -4,7 +4,7 @@ from dependency_injector import containers, providers
 
 from .database import Database
 from .repositories import UserRepository, UserAdminRepository
-from .services import UserService, UserAdminService
+from webapp.controller.services import UserService, UserAdminService
 
 
 class Container(containers.DeclarativeContainer):

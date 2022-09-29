@@ -2,7 +2,7 @@
 
 from typing import Iterator
 
-from .repositories import UserRepository
+from webapp.repositories import UserRepository
 from .models import User, UserAdmin
 from webapp.dto.input import UserInput, UserAdminInput
 
