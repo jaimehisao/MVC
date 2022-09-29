@@ -4,8 +4,8 @@ from uuid import uuid4
 from typing import Iterator
 
 from .repositories import UserRepository
-from .models import User
-from input import UserInput
+from .models import User, UserAdmin
+from input import UserInput, UserAdminInput
 
 
 class UserService:
@@ -30,3 +30,15 @@ class UserService:
 
     def delete_user_by_id(self, user_id: int) -> None:
         return self._repository.delete_by_id(user_id)
+
+
+class UserAdminService:
+
+    def __init__(self, user_admin_repository: UserAdminRepository) -> None:
+        self._repository: UserAdminRepository = user_admin_repository
+
+    def get_admin_users(self) -> Iterator[UserAdmin]:
+        return self._repository.get_all()
+
+    def create_admin(self, admin_input: UserAdminInput) -> UserAdmin:
+        return self._repository.add(admin_input)

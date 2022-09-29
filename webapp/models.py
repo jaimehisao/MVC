@@ -6,7 +6,6 @@ from .database import Base
 
 
 class User(Base):
-
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True)
@@ -29,3 +28,16 @@ class User(Base):
                f"year_of_birth=\"{self.year_of_birth}\", " \
                f"city_of_birth=\"{self.city_of_birth}\", " \
                f"is_active={self.is_active})>"
+
+
+class UserAdmin(Base):
+    __tablename__ = "user_admins"
+
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer)
+    is_admin = Column(Boolean, default=True)
+
+    def __repr__(self):
+        return f"<UserAdmin(id={self.id}, " \
+               f"user_id=\"{self.user_id}\", " \
+               f"is_admin=\"{self.is_admin}\")>"

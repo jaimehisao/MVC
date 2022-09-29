@@ -4,11 +4,13 @@ from fastapi import APIRouter, Depends, Response, status
 from dependency_injector.wiring import inject, Provide
 
 from .containers import Container
-from .services import UserService, UserInput
+from .services import UserService, UserAdminService, UserInput
 from .repositories import NotFoundError
 
 router = APIRouter()
 
+
+### User endpoints ###
 @router.get("/users")
 @inject
 def get_list(
@@ -51,6 +53,22 @@ def remove(
     else:
         return Response(status_code=status.HTTP_204_NO_CONTENT)
 
+
+### Admin Endpoints ###
+@router.get("/admin/users")
+@inject
+def get_admin_users(
+        user_admin_service: UserAdminService = Depends(Provide[Container.user_admin_service]),
+):
+    return user_admin_service.get_admin_users()
+
+@router.post("/admin/users")
+@inject
+def add_admin_user(
+        admin_input: UserAdminInput,
+        user_admin_service: UserAdminService = Depends(Provide[Container.user_admin_service]),
+):
+    return user_admin_service.create_admin(UserAdminInput)
 
 @router.get("/status")
 def get_status():
