@@ -1,4 +1,4 @@
-"""Endpoints module."""
+"""User Endpoints module."""
 
 from fastapi import APIRouter, Depends, Response, status
 from dependency_injector.wiring import inject, Provide
@@ -9,8 +9,6 @@ from .repositories import NotFoundError
 
 router = APIRouter()
 
-
-### User endpoints ###
 @router.get("/users")
 @inject
 def get_list(
@@ -52,8 +50,3 @@ def remove(
         return Response(status_code=status.HTTP_404_NOT_FOUND)
     else:
         return Response(status_code=status.HTTP_204_NO_CONTENT)
-
-
-
-
-

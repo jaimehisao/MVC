@@ -16,7 +16,11 @@ class UserRepository:
 
     def get_all(self) -> Iterator[User]:
         with self.session_factory() as session:
-            return session.query(User).all() 
+            query_users = session.query(User).all()
+            output_user = {}
+            for user in query_users:
+                output_user[user.id] = user
+            return output_user
 
     def get_by_id(self, user_id: int) -> User:
         with self.session_factory() as session:
@@ -53,6 +57,10 @@ class UserRepository:
                 raise UserNotFoundError(user_id)
             session.delete(entity)
             session.commit()
+
+
+class UserAdminRepository:
+
 
 
 class NotFoundError(Exception):
