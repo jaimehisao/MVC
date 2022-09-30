@@ -6,7 +6,7 @@ from typing import Callable, Iterator
 from sqlalchemy.orm import Session
 
 from models import User, UserAdmin
-
+from ..dto.input import AdminInput, UserInput
 
 class UserRepository:
 
@@ -16,10 +16,7 @@ class UserRepository:
     def get_all(self) -> Iterator[User]:
         with self.session_factory() as session:
             query_users = session.query(User).all()
-            output_user = {}
-            for user in query_users:
-                output_user[user.id] = user
-            return output_user
+            return query_users
 
     def get_by_id(self, user_id: int) -> User:
         with self.session_factory() as session:
@@ -29,21 +26,15 @@ class UserRepository:
             return user
 
     def add(self,
-            email: str,
-            password: str,
-            day_of_birth: int,
-            month_of_birth: int,
-            year_of_birth: int,
-            city_of_birth: str,
-            is_active: bool = True) -> User:
+            user_input: UserInput) -> User:
         with self.session_factory() as session:
-            user = User(email=email,
-                        hashed_password=password,
-                        is_active=is_active,
-                        day_of_birth=day_of_birth,
-                        month_of_birth=month_of_birth,
-                        year_of_birth=year_of_birth,
-                        city_of_birth=city_of_birth)
+            user = User(email=user_input.email,
+                        hashed_password=user_input.hashed_password,
+                        is_active=user_input.is_active,
+                        day_of_birth=user_input.day_of_birth,
+                        month_of_birth=user_input.month_of_birth,
+                        year_of_birth=user_input.year_of_birth,
+                        city_of_birth=user_input.city_of_birth)
             session.add(user)
             session.commit()
             session.refresh(user)
