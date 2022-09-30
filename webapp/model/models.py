@@ -1,7 +1,6 @@
 """Models module."""
 
 from sqlalchemy import Column, String, Boolean, Integer
-
 from ..database import Base
 
 
