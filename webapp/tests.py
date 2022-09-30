@@ -5,8 +5,8 @@ from unittest import mock
 import pytest
 from fastapi.testclient import TestClient
 
-from .repositories import UserRepository, UserNotFoundError
-from .models import User
+from webapp.model.repositories import UserRepository, UserNotFoundError
+from model.models import User
 from .application import app
 
 

@@ -1,12 +1,11 @@
 """Repositories module."""
 
 from contextlib import AbstractContextManager
-from numbers import Integral
 from typing import Callable, Iterator
 
 from sqlalchemy.orm import Session
 
-from model.models import User
+from models import User, UserAdmin
 
 
 class UserRepository:
@@ -60,6 +59,14 @@ class UserRepository:
 
 
 class UserAdminRepository:
+    def __init__(self, user_admin_repository: UserAdminRepository) -> None:
+        self._repository: UserAdminRepository = user_admin_repository
+
+    def get_admin_users(self) -> Iterator[UserAdmin]:
+        return self._repository.get_all()
+
+    def creatre_admin_user(self, admin_input: AdminInput) -> UserAdmin:
+        return self._repository.add(admin_input)
 
 
 

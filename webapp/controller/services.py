@@ -2,9 +2,9 @@
 
 from typing import Iterator
 
-from webapp.repositories import UserRepository
-from .models import User, UserAdmin
-from webapp.dto.input import UserInput, UserAdminInput
+from webapp.model.repositories import UserRepository, UserAdminRepository
+from ..model.models import User, UserAdmin
+from webapp.dto.input import UserInput, AdminInput
 
 
 class UserService:
@@ -39,5 +39,5 @@ class UserAdminService:
     def get_admin_users(self) -> Iterator[UserAdmin]:
         return self._repository.get_all()
 
-    def create_admin(self, admin_input: UserAdminInput) -> UserAdmin:
+    def create_admin(self, admin_input: AdminInput) -> UserAdmin:
         return self._repository.add(admin_input)

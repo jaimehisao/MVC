@@ -1,11 +1,6 @@
 """Status endpoints module."""
 
-from fastapi import APIRouter, Depends, Response, status
-from dependency_injector.wiring import inject, Provide
-
-from .containers import Container
-from .services import UserService, UserAdminService, UserInput
-from .repositories import NotFoundError
+from fastapi import APIRouter
 
 router = APIRouter()
 

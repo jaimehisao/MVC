@@ -3,7 +3,7 @@
 from dependency_injector import containers, providers
 
 from .database import Database
-from .repositories import UserRepository, UserAdminRepository
+from webapp.model.repositories import UserRepository, UserAdminRepository
 from webapp.controller.services import UserService, UserAdminService
 
 
