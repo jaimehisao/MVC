@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 from models import User, UserAdmin
 from ..dto.input import AdminInput, UserInput
 
+
 class UserRepository:
 
     def __init__(self, session_factory: Callable[..., AbstractContextManager[Session]]) -> None:
@@ -50,15 +51,22 @@ class UserRepository:
 
 
 class UserAdminRepository:
-    def __init__(self, user_admin_repository: UserAdminRepository) -> None:
-        self._repository: UserAdminRepository = user_admin_repository
+    def __init__(self, session_factory: Callable[..., AbstractContextManager[Session]]) -> None:
+        self.session_factory = session_factory
+
+    def create_admin(self,
+                     admin_input: AdminInput) -> User:
+        with self.session_factory() as session:
+            admin_user = UserAdmin(user_id=admin_input.user_id, is_admin=admin_input.is_admin)
+            session.add(admin_user)
+            session.commit()
+            session.refresh(admin_user)
+            return admin_user
 
     def get_admin_users(self) -> Iterator[UserAdmin]:
-        return self._repository.get_all()
-
-    def creatre_admin_user(self, admin_input: AdminInput) -> UserAdmin:
-        return self._repository.add(admin_input)
-
+        with self.session_factory() as session:
+            query_users = session.query(UserAdmin).all()
+            return query_users
 
 
 class NotFoundError(Exception):
@@ -69,5 +77,4 @@ class NotFoundError(Exception):
 
 
 class UserNotFoundError(NotFoundError):
-
     entity_name: str = "User"
