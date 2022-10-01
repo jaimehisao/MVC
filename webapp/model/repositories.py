@@ -17,7 +17,17 @@ class UserRepository:
     def get_all(self) -> Iterator[User]:
         with self.session_factory() as session:
             query_users = session.query(User).all()
-            return query_users
+            output = []
+            for element in query_users:
+                user_data = User(email=element.email,
+                        hashed_password=element.hashed_password,
+                        is_active=element.is_active,
+                        day_of_birth=element.day_of_birth,
+                        month_of_birth=element.month_of_birth,
+                        year_of_birth=element.year_of_birth,
+                        city_of_birth=element.city_of_birth)
+                output.append(user_data)
+            return output
 
     def get_by_id(self, user_id: int) -> User:
         with self.session_factory() as session:
