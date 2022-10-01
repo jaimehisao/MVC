@@ -75,8 +75,12 @@ class UserAdminRepository:
 
     def get_admin_users(self) -> Iterator[UserAdmin]:
         with self.session_factory() as session:
-            query_users = session.query(UserAdmin).all()
-            return query_users
+            output = []
+            query_admin_users = session.query(UserAdmin).all()
+            for element in query_admin_users:
+                user_admin_data = UserAdmin(user_id=element.user_id, is_admin=element.is_admin)
+                output.append(user_admin_data)
+            return output
 
 
 class NotFoundError(Exception):
