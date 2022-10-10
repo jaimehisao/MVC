@@ -21,7 +21,7 @@ def get_all_characters():
         characters.append(Character(name=character["name"],
                                     species=character["species"],
                                     gender=character["gender"],
-                                    number_of_episodes=0))
+                                    number_of_episodes=len(character["episode"])))
 
     while curr_page <= num_pages:
         response = session.get(url, params={"page": curr_page})
@@ -44,7 +44,7 @@ def get_all_locations():
         locations.append(Location(name=location["name"],
                                   _type=location["type"],
                                   dimension=location["dimension"],
-                                  number_of_residents=0))
+                                  number_of_residents=len(location["residents"])))
 
     while curr_page <= num_pages:
         response = session.get(url, params={"page": curr_page})
@@ -67,7 +67,7 @@ def get_all_episodes():
         episodes.append(Episode(name=episode["name"],
                                 air_date=episode["air_date"],
                                 episode_number=episode["episode"],
-                                number_of_characters=0))
+                                number_of_characters=len(episode["characters"])))
 
     while curr_page <= num_pages:
         response = session.get(url, params={"page": curr_page})
@@ -80,3 +80,5 @@ def get_all_episodes():
 chars = get_all_characters()
 locs = get_all_locations()
 epis = get_all_episodes()
+print(epis[0])
+print("done")
