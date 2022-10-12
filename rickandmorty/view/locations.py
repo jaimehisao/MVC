@@ -1,4 +1,4 @@
-"""Episodes endpoints module."""
+"""Locations endpoints module."""
 
 from fastapi import APIRouter, Depends, Response, status
 from dependency_injector.wiring import inject, Provide
@@ -11,9 +11,9 @@ router = APIRouter()
 
 
 ### Episodes Endpoints ###
-@router.get("/episodes")
+@router.get("/locations")
 @inject
-def get_episodes(
-        episodes_service: EpisodesService = Depends(Provide[Container.episodes_service]),
+def get_locations(
+        locations_service: LocationsService = Depends(Provide[Container.locations_service]),
 ):
-    return episodes_service.get_all()
+    return locations_service.get_all()
