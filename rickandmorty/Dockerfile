@@ -1,10 +1,13 @@
-FROM python:3.9
+FROM python:3.10-buster
 
-WORKDIR /app
+ENV PYTHONUNBUFFERED=1
+ENV HOST=0.0.0.0
+ENV PORT=8000
 
-COPY requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
+WORKDIR /code
+COPY .. /code/
 
-COPY . .
-
-CMD [ "python3", "main.py"]
+RUN pip install --upgrade pip \
+ && pip install -r requirements.txt
+EXPOSE 8000
+CMD uvicorn application:app --host ${HOST} --port ${PORT}

@@ -2,24 +2,24 @@
 
 from typing import Iterator
 
+from dto.episode import Episode
+from dto.location import Location
+from dto.character import Character
 
-import rickandmorty.location as location_dto
-import rickandmorty.episode as episode_dto
-import rickandmorty.character as character_dto
-
+from models import EpisodeModel, LocationModel, CharacterModel
 
 class EpisodeRepository:
     def __init__(self) -> None:
         # self.session_factory = session_factory
         self.episode_dict = {}
 
-    def get_all(self) -> Iterator[episode_dto.Episode]:
+    def get_all(self) -> Iterator[EpisodeModel]:
         return self.episode_dict
 
-    def get_by_id(self, episode_id: int) -> episode_dto.Episode:
+    def get_by_id(self, episode_id: int) -> EpisodeModel:
         return self.episode_dict[episode_id]
 
-    def add(self, episode: episode_dto.Episode):
+    def add(self, episode: Episode):
         self.episode_dict[episode.episode_number] = episode
 
 
@@ -28,13 +28,13 @@ class LocationRepository:
         # self.session_factory = session_factory
         self.location_dict = {}
 
-    def get_all(self) -> Iterator[location_dto.Location]:
+    def get_all(self) -> Iterator[LocationModel]:
         return self.location_dict
 
-    def get_by_id(self, location_id: int) -> location_dto.Location:
+    def get_by_id(self, location_id: int) -> LocationModel:
         return self.location_dict[location_id]
 
-    def add(self, location: location_dto.Location):
+    def add(self, location: Location):
         self.location_dict[location.name] = location
 
 
@@ -43,13 +43,13 @@ class CharacterRepository:
         # self.session_factory = session_factory
         self.character_dict = {}
 
-    def get_all(self) -> Iterator[character_dto.Character]:
+    def get_all(self) -> Iterator[CharacterModel]:
         return self.character_dict
 
-    def get_by_id(self, character_id: int) -> character_dto.Character:
+    def get_by_id(self, character_id: int) -> CharacterModel:
         return self.character_dict[character_id]
 
-    def add(self, character: character_dto.Character):
+    def add(self, character: Character):
         self.character_dict[character.name] = character
 
 

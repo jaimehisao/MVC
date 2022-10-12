@@ -3,8 +3,8 @@
 from fastapi import APIRouter, Depends
 from dependency_injector.wiring import inject, Provide
 
-import rickandmorty.containers as containers
-import rickandmorty.services as services
+from containers import Container
+from services import EpisodesService
 
 router = APIRouter()
 
@@ -13,6 +13,6 @@ router = APIRouter()
 @router.get("/episodes")
 @inject
 def get_episodes(
-        episodes_service: services.EpisodesService = Depends(Provide[containers.EpisodesService]),
+        episodes_service: EpisodesService = Depends(Provide[Container.episode_service]),
 ):
     return episodes_service.get_all()

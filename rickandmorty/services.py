@@ -1,11 +1,8 @@
 """Services module."""
-
-import sys
-sys.path.append("")
-import rickandmorty.repositories as repositories
-import rickandmorty.location as location_dto
-import rickandmorty.episode as episode_dto
-import rickandmorty.character as character_dto
+import repositories as repositories
+from dto.episode import Episode
+from dto.location import Location
+from dto.character import Character
 
 
 class EpisodesService:
@@ -20,7 +17,7 @@ class EpisodesService:
     def get_by_id(self, episode_id: int):
         return self.episodes_repository.get_by_id(episode_id)
 
-    def add(self, episode_input: episode_dto.Episode):
+    def add(self, episode_input: Episode):
         return self.episodes_repository.add(episode_input)
 
 
@@ -36,7 +33,7 @@ class LocationsService:
     def get_by_id(self, location_id: int):
         return self.locations_repository.get_by_id(location_id)
 
-    def add(self, location_input: location_dto.Location):
+    def add(self, location_input: Location):
         return self.locations_repository.add(location_input)
 
 
@@ -52,5 +49,5 @@ class CharacterService:
     def get_by_id(self, character_id: int):
         return self.character_repository.get_by_id(character_id)
 
-    def add(self, character_input: character_dto.Character):
+    def add(self, character_input: Character):
         return self.character_repository.add(character_input)

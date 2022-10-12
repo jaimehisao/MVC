@@ -2,13 +2,13 @@
 
 from dependency_injector import containers, providers
 
-from rickandmorty.services import EpisodesService, LocationsService, CharacterService
-from rickandmorty.repositories import EpisodeRepository, LocationRepository, CharacterRepository
+from services import EpisodesService, LocationsService, CharacterService
+from repositories import EpisodeRepository, LocationRepository, CharacterRepository
 
 
 class Container(containers.DeclarativeContainer):
 
-    wiring_config = containers.WiringConfiguration(modules=[".view"])
+    wiring_config = containers.WiringConfiguration(modules=["episodes", "locations", "characters"])
 
     episode_repository = providers.Factory(
         EpisodeRepository,

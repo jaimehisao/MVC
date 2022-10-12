@@ -1,42 +1,60 @@
 """Models module."""
 
 from sqlalchemy import Column, String, Boolean, Integer
-from ..database import Base
+from sqlalchemy.ext.declarative import declarative_base
+Base = declarative_base()
 
 
-class User(Base):
-    __tablename__ = "users"
+class EpisodeModel(Base):
+    __tablename__ = "episodes"
 
-    id = Column(Integer, primary_key=True)
-    email = Column(String, unique=True)
-    hashed_password = Column(String)
-    is_active = Column(Boolean, default=True)
-
-    # nuevos campos
-    day_of_birth = Column(Integer)
-    month_of_birth = Column(Integer)
-    year_of_birth = Column(Integer)
-    city_of_birth = Column(String)
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String)
+    air_date = Column(String)
+    episode = Column(String)
+    characters = Column(String)
+    url = Column(String)
+    created = Column(String)
 
     def __repr__(self):
-        return f"<User(id={self.id}, " \
-               f"email=\"{self.email}\", " \
-               f"hashed_password=\"{self.hashed_password}\", " \
-               f"day_of_birth=\"{self.day_of_birth}\", " \
-               f"month_of_birth=\"{self.month_of_birth}\", " \
-               f"year_of_birth=\"{self.year_of_birth}\", " \
-               f"city_of_birth=\"{self.city_of_birth}\", " \
-               f"is_active={self.is_active})>"
+        return f"<Character(id={self.id}, " \
+               f"name=\"{self.name}\", " \
+               f"status=\"{self.status}\", "\
+               f"species=\"{self.species}\", " \
+               f"type={self.type})>"
 
 
-class UserAdmin(Base):
-    __tablename__ = "user_admins"
+class LocationModel(Base):
+    __tablename__ = "locations"
 
-    id = Column(Integer, primary_key=True)
-    user_id = Column(Integer)
-    is_admin = Column(Boolean, default=True)
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String)
+    type = Column(String)
+    dimension = Column(String)
+    residents = Column(String)
+    url = Column(String)
+    created = Column(String)
 
     def __repr__(self):
-        return f"<UserAdmin(id={self.id}, " \
-               f"user_id=\"{self.user_id}\", " \
-               f"is_admin=\"{self.is_admin}\")>"
+        return f"<Character(id={self.id}, " \
+               f"name=\"{self.name}\", " \
+               f"status=\"{self.status}\", "\
+               f"species=\"{self.species}\", " \
+               f"type={self.type})>"
+
+
+class CharacterModel(Base):
+    __tablename__ = "characters"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String)
+    status = Column(String)
+    species = Column(String)
+    type = Column(String)
+
+    def __repr__(self):
+        return f"<Character(id={self.id}, " \
+               f"name=\"{self.name}\", " \
+               f"status=\"{self.status}\", "\
+               f"species=\"{self.species}\", " \
+               f"type={self.type})>"
