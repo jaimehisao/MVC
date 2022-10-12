@@ -2,35 +2,34 @@
 
 from dependency_injector import containers, providers
 
-from .database import Database
-from mvc.webapp.model.repositories import UserRepository, UserAdminRepository
-from mvc.webapp.controller.services import UserService, UserAdminService
+from rickandmorty.services import EpisodesService, LocationsService, CharacterService
+from rickandmorty.repositories import EpisodeRepository, LocationRepository, CharacterRepository
 
 
 class Container(containers.DeclarativeContainer):
 
-    wiring_config = containers.WiringConfiguration(modules=[".endpoints"])
+    wiring_config = containers.WiringConfiguration(modules=[".view"])
 
-    config = providers.Configuration(yaml_files=["config.yml"])
-
-    db = providers.Singleton(Database, db_url=config.db.url)
-
-    user_repository = providers.Factory(
-        UserRepository,
-        session_factory=db.provided.session,
+    episode_repository = providers.Factory(
+        EpisodeRepository,
     )
 
-    user_admin_repository = providers.Factory(
-        UserAdminRepository,
-        session_factory=db.provided.session,
+    location_repository = providers.Factory(
+        LocationRepository,
     )
 
-    user_service = providers.Factory(
-        UserService,
-        user_repository=user_repository,
+    character_repository = providers.Factory(
+        CharacterRepository,
     )
 
-    user_admin_service = providers.Factory(
-        UserAdminService,
-        user_repository=user_repository,
+    episode_service = providers.Factory(
+        EpisodesService,
+    )
+
+    location_service = providers.Factory(
+        LocationsService,
+    )
+
+    character_service = providers.Factory(
+        CharacterService,
     )

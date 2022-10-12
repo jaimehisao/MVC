@@ -1,7 +1,7 @@
 import requests
-from dto.character import Character
-from dto.location import Location
-from dto.episode import Episode
+from rickandmorty.character import Character
+from rickandmorty.location import Location
+from rickandmorty.episode import Episode
 
 root_url = "https://rickandmortyapi.com/api"
 

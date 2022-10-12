@@ -3,6 +3,10 @@
 from fastapi import FastAPI
 from containers import Container
 
+from rickandmorty.characters import router as characters_router
+from rickandmorty.episodes import router as episodes_router
+from rickandmorty.locations import router as locations_router
+
 def create_app() -> FastAPI:
     container = Container()
 
@@ -11,9 +15,9 @@ def create_app() -> FastAPI:
 
     app = FastAPI()
     app.container = container
-    app.include_router(admin_users_router)
-    app.include_router(status_router)
-    app.include_router(users_router)
+    app.include_router(characters_router)
+    app.include_router(episodes_router)
+    app.include_router(locations_router)
     return app
 
 
