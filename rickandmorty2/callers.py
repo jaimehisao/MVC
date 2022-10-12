@@ -45,7 +45,7 @@ def get_all_locations():
 
     for location in response.json()["results"]:
         locations.append(Location(name=location["name"],
-                                  _type=location["type"],
+                                  type=location["type"],
                                   dimension=location["dimension"],
                                   number_of_residents=len(location["residents"])))
 
@@ -53,7 +53,7 @@ def get_all_locations():
         response = session.get(url, params={"page": curr_page})
         for location in response.json()["results"]:
             locations.append(Location(name=location["name"],
-                                      _type=location["type"],
+                                      type=location["type"],
                                       dimension=location["dimension"],
                                       number_of_residents=len(location["residents"])))
         curr_page += 1
